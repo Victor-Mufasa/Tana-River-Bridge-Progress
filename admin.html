@@ -3,12 +3,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Overview - Tana River Bridge Project</title>
+    <title>Update Data - Tana River Bridge Project</title>
 
-    <!-- ============================================================ -->
-    <!-- CRITICAL: Theme script must run BEFORE any CSS or rendering -->
-    <!-- This prevents the flash of light mode before dark mode applies -->
-    <!-- ============================================================ -->
+    <!-- CRITICAL: Theme script runs BEFORE any CSS -->
     <script>
         (function() {
             'use strict';
@@ -20,7 +17,6 @@
             }
             if (!theme) theme = 'light';
             document.documentElement.setAttribute('data-theme', theme);
-            // Store the applied theme for later use
             window.__theme = theme;
         })();
     </script>
@@ -39,14 +35,12 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css" />
-
-    <!-- ============================================================ -->
-    <!-- Theme script runs again here for any additional setup -->
-    <!-- But the theme is already applied from the inline script above -->
-    <!-- ============================================================ -->
 </head>
 <body>
 
+    <!-- ============================================================ -->
+    <!-- HEADER -->
+    <!-- ============================================================ -->
     <header class="main-header">
         <div class="header-inner">
             <div class="logo-area">
@@ -57,6 +51,7 @@
                 </div>
             </div>
             <div class="header-right">
+                <!-- Theme Toggle -->
                 <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
                     <i class="fas fa-moon" id="themeIcon"></i>
                 </button>
@@ -68,14 +63,17 @@
                     <i class="fas fa-calendar-alt"></i>
                     <span>MPR No. 30 · July 2026</span>
                 </div>
-                <a href="admin.html" class="admin-link">
-                    <i class="fas fa-pen-to-square"></i>
-                    <span>Update</span>
+                <a href="index.html" class="admin-link" style="background:var(--bg-tertiary);color:var(--text-primary);">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Dashboard</span>
                 </a>
             </div>
         </div>
     </header>
 
+    <!-- ============================================================ -->
+    <!-- SIDEBAR + CONTENT -->
+    <!-- ============================================================ -->
     <div class="app-container">
         <nav class="sidebar">
             <ul class="nav-list">
@@ -83,7 +81,7 @@
                 <li><a href="progress.html" class="nav-link"><i class="fas fa-tasks"></i><span>Progress</span></a></li>
                 <li><a href="financial.html" class="nav-link"><i class="fas fa-coins"></i><span>Financial</span></a></li>
                 <li><a href="environmental.html" class="nav-link"><i class="fas fa-leaf"></i><span>Environmental</span></a></li>
-                <li><a href="risks-actions.html" class="nav-link active"><i class="fas fa-shield-alt"></i><span>Risks &amp; Actions</span></a></li>
+                <li><a href="risks-actions.html" class="nav-link"><i class="fas fa-shield-alt"></i><span>Risks &amp; Actions</span></a></li>
             </ul>
             <div class="nav-footer">
                 <div class="small-text">Data updated:</div>
@@ -91,69 +89,146 @@
             </div>
         </nav>
 
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT - ADMIN UPDATE PAGE -->
+        <!-- ============================================================ -->
         <main class="main-content">
 
+            <!-- Page Header -->
             <div class="page-header">
                 <div>
-                    <h2><i class="fas fa-shield-alt" style="color:var(--danger);"></i> Risks &amp; Actions</h2>
-                    <p class="page-subtitle">Project risks, mitigation status, and priority action items</p>
+                    <h2><i class="fas fa-pen-to-square" style="color:var(--primary);"></i> Update Project Data</h2>
+                    <p class="page-subtitle">Enter new progress data from the latest Monthly Progress Report</p>
                 </div>
                 <div>
-                    <span class="page-badge" style="background:var(--warning-bg);color:var(--warning);">Risk Score: 3.67</span>
-                    <a href="admin.html?section=risks" class="page-badge" style="background:var(--primary);color:white;text-decoration:none;">
-                        <i class="fas fa-pen"></i> Update
-                    </a>
+                    <span class="page-badge" style="background:var(--warning-bg);color:var(--warning);">
+                        <i class="fas fa-lock"></i> Admin Only
+                    </span>
                 </div>
             </div>
 
-            <!-- Risk Register -->
+            <!-- Status Message -->
+            <div id="updateStatus" style="display:none;" class="alert-box"></div>
+
+            <!-- ============================================================ -->
+            <!-- SECTION 1: Overall Project Status -->
+            <!-- ============================================================ -->
             <div class="card full-width">
                 <div class="card-header">
-                    <h3><i class="fas fa-list-check"></i> Risk Register</h3>
-                    <span class="badge">6 risks identified</span>
+                    <h3><i class="fas fa-chart-line" style="color:var(--primary);"></i> Overall Project Status</h3>
                 </div>
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Risk</th>
-                                <th style="text-align:center;">Score</th>
-                                <th style="text-align:center;">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody id="riskBody">
-                            <!-- Injected by JS -->
-                        </tbody>
-                    </table>
-                </div>
-                <div class="alert-box danger" style="margin-top:12px;">
-                    <i class="fas fa-exclamation-circle"></i>
-                    <span><strong>Overall Project Risk Score: 3.67</strong> – High risk level. Immediate action required on equipment mobilization and permit renewals.</span>
-                </div>
+                <form id="updateForm" class="admin-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="overallProgress">Overall Progress (%)</label>
+                            <input type="number" id="overallProgress" step="0.1" min="0" max="100" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="daysToCompletion">Days to Completion</label>
+                            <input type="number" id="daysToCompletion" min="0" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="projectStatus">Project Status</label>
+                            <select id="projectStatus">
+                                <option value="CRITICAL">🔴 Critical</option>
+                                <option value="WARNING">🟡 Warning</option>
+                                <option value="ON-TRACK">🟢 On-Track</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Update Overall Status
+                    </button>
+                </form>
             </div>
 
-            <!-- Action Tracker -->
+            <!-- ============================================================ -->
+            <!-- SECTION 2: Work Package Updates -->
+            <!-- ============================================================ -->
             <div class="card full-width">
                 <div class="card-header">
-                    <h3><i class="fas fa-clipboard-list" style="color:var(--primary);"></i> Action Tracker</h3>
-                    <span class="badge">9 actions</span>
+                    <h3><i class="fas fa-tasks" style="color:var(--success);"></i> Work Package Progress</h3>
+                    <span class="badge">Update individual package progress</span>
                 </div>
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th style="width:100px;">Priority</th>
-                                <th>Action Item</th>
-                                <th style="width:120px;text-align:center;">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody id="actionBody">
-                            <!-- Injected by JS -->
-                        </tbody>
-                    </table>
+                <div id="workPackageUpdateContainer">
+                    <!-- Injected by JS -->
                 </div>
             </div>
 
+            <!-- ============================================================ -->
+            <!-- SECTION 3: Equipment Updates -->
+            <!-- ============================================================ -->
+            <div class="card full-width">
+                <div class="card-header">
+                    <h3><i class="fas fa-truck" style="color:var(--warning);"></i> Equipment Mobilization</h3>
+                    <span class="badge">Update equipment counts</span>
+                </div>
+                <div id="equipmentUpdateContainer">
+                    <!-- Injected by JS -->
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- SECTION 4: Add New Action -->
+            <!-- ============================================================ -->
+            <div class="card full-width">
+                <div class="card-header">
+                    <h3><i class="fas fa-plus-circle" style="color:var(--primary);"></i> Add New Action Item</h3>
+                </div>
+                <form id="addActionForm" class="admin-form">
+                    <div class="form-row">
+                        <div class="form-group" style="flex:1;">
+                            <label for="actionPriority">Priority</label>
+                            <select id="actionPriority">
+                                <option value="critical">🔴 Critical</option>
+                                <option value="high">🟡 High</option>
+                                <option value="medium">🔵 Medium</option>
+                                <option value="low">🟢 Low</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="flex:3;">
+                            <label for="actionDescription">Action Description</label>
+                            <input type="text" id="actionDescription" placeholder="Enter action item..." required />
+                        </div>
+                        <div class="form-group" style="flex:1;">
+                            <label for="actionStatus">Status</label>
+                            <select id="actionStatus">
+                                <option value="pending">⏳ Pending</option>
+                                <option value="in-progress">🔄 In Progress</option>
+                                <option value="completed">✅ Completed</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Add Action
+                    </button>
+                </form>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- SECTION 5: Export / Import -->
+            <!-- ============================================================ -->
+            <div class="row-2col">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-download" style="color:var(--primary);"></i> Export Data</h3>
+                    </div>
+                    <button onclick="exportData()" class="btn btn-secondary" style="width:100%;">
+                        <i class="fas fa-file-export"></i> Download JSON
+                    </button>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-upload" style="color:var(--primary);"></i> Import Data</h3>
+                    </div>
+                    <input type="file" id="importFile" accept=".json" style="margin-bottom:10px;width:100%;" />
+                    <button onclick="importData()" class="btn btn-secondary" style="width:100%;">
+                        <i class="fas fa-file-import"></i> Upload JSON
+                    </button>
+                </div>
+            </div>
+
+            <!-- Footer -->
             <footer class="content-footer">
                 <span>RHINES Engineering Services Ltd · in JV with CM Kamau &amp; Associates · in association with BATCH Associates Ltd</span>
                 <span style="color:var(--text-muted);font-size:12px;">Data sourced from Monthly Progress Report No. 30 – July 2026</span>
@@ -162,10 +237,14 @@
         </main>
     </div>
 
+    <!-- ============================================================ -->
+    <!-- SCRIPTS -->
+    <!-- ============================================================ -->
     <script src="data/project-data.js"></script>
     <script src="js/theme.js"></script>
     <script src="js/dashboard.js"></script>
     <script src="js/navigation.js"></script>
+    <script src="js/admin.js"></script>
 
 </body>
 </html>
