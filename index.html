@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Overview - Tana River Bridge Project</title>
+
+    <!-- ============================================================ -->
+    <!-- CRITICAL: Theme script must run BEFORE any CSS or rendering -->
+    <!-- This prevents the flash of light mode before dark mode applies -->
+    <!-- ============================================================ -->
+    <script>
+        (function() {
+            'use strict';
+            var STORAGE_KEY = 'tana-bridge-theme';
+            var stored = localStorage.getItem(STORAGE_KEY);
+            var theme = stored;
+            if (!theme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                theme = 'dark';
+            }
+            if (!theme) theme = 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+            // Store the applied theme for later use
+            window.__theme = theme;
+        })();
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
+    </script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- ============================================================ -->
+    <!-- Theme script runs again here for any additional setup -->
+    <!-- But the theme is already applied from the inline script above -->
+    <!-- ============================================================ -->
+</head>
+<body>
+
+    <!-- ============================================================ -->
+    <!-- TOP HEADER -->
+    <!-- ============================================================ -->
+    <header class="main-header">
+        <div class="header-inner">
+            <div class="logo-area">
+                <i class="fas fa-road" style="font-size:24px;color:var(--accent);"></i>
+                <div>
+                    <h1>New Tana River Bridge</h1>
+                    <span class="contract-ref">KeNHA/RD/HDS/4011/2023</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <!-- Theme Toggle -->
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                </button>
+                <div class="status-badge" id="overallStatus">
+                    <span class="status-dot pulse"></span>
+                    <span class="status-text">CRITICAL</span>
+                </div>
+                <div class="report-info">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>MPR No. 30 · July 2026</span>
+                </div>
+                <a href="admin.html" class="admin-link">
+                    <i class="fas fa-pen-to-square"></i>
+                    <span>Update</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============================================================ -->
+    <!-- SIDEBAR NAVIGATION -->
+    <!-- ============================================================ -->
+    <div class="app-container">
+        <nav class="sidebar">
+            <ul class="nav-list">
+                <li>
+                    <a href="index.html" class="nav-link active">
+                        <i class="fas fa-chart-simple"></i>
+                        <span>Overview</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="progress.html" class="nav-link">
+                        <i class="fas fa-tasks"></i>
+                        <span>Progress</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="financial.html" class="nav-link">
+                        <i class="fas fa-coins"></i>
+                        <span>Financial</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="environmental.html" class="nav-link">
+                        <i class="fas fa-leaf"></i>
+                        <span>Environmental</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="risks-actions.html" class="nav-link">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Risks &amp; Actions</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="nav-footer">
+                <div class="small-text">Data updated:</div>
+                <div class="small-text" id="footerDate">2026-08-07</div>
+            </div>
+        </nav>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT -->
+        <!-- ============================================================ -->
+        <main class="main-content">
+
+            <!-- Page Header -->
+            <div class="page-header">
+                <div>
+                    <h2><i class="fas fa-chart-simple" style="color:var(--primary);"></i> Project Overview</h2>
+                    <p class="page-subtitle">High-level summary of the New Tana River Bridge project status</p>
+                </div>
+                <div>
+                    <span class="page-badge">MPR No. 30</span>
+                    <span class="page-badge" style="background:var(--bg-tertiary);color:var(--text-secondary);">July 2026</span>
+                </div>
+            </div>
+
+            <!-- KPI Cards -->
+            <section class="kpi-grid" id="kpiGrid">
+                <!-- Injected by JS -->
+            </section>
+
+            <!-- Two-column: Progress Ring + Critical Path -->
+            <div class="row-2col">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-chart-pie" style="color:var(--primary);"></i> Overall Progress</h3>
+                        <span class="badge" id="progressBadge">82.6% Complete</span>
+                    </div>
+                    <div class="progress-ring-container">
+                        <canvas id="progressRing" width="200" height="200"></canvas>
+                        <div class="progress-ring-label">
+                            <span class="big" id="progressPercent">82.6%</span>
+                            <span class="small">Physical Progress</span>
+                        </div>
+                    </div>
+                    <div class="progress-details">
+                        <div class="progress-detail-item">
+                            <span>Time Elapsed</span>
+                            <span><strong id="timeElapsed">98.59%</strong> (906/919 days)</span>
+                        </div>
+                        <div class="progress-detail-item">
+                            <span>Days to Completion</span>
+                            <span><strong id="daysToCompletion">13</strong> days</span>
+                        </div>
+                        <div class="progress-detail-item">
+                            <span>Revised Completion</span>
+                            <span><strong>13 Aug 2026</strong> ⚠️</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-route" style="color:var(--danger);"></i> Critical Path</h3>
+                        <span class="badge" style="background:var(--danger-bg);color:var(--danger);">🔴 BLOCKED</span>
+                    </div>
+                    <div class="critical-path" id="criticalPath">
+                        <!-- Injected by JS -->
+                    </div>
+                    <div class="critical-blocked-note">
+                        <i class="fas fa-exclamation-triangle" style="color:var(--danger);"></i>
+                        <span>Asphalt equipment <strong>not mobilized</strong> – critical delay risk</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="row-2col">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-clipboard-check" style="color:var(--success);"></i> Work Package Summary</h3>
+                        <span class="badge">13 packages</span>
+                    </div>
+                    <div class="quick-stats-grid" id="quickStats">
+                        <!-- Injected by JS -->
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-exclamation-triangle" style="color:var(--danger);"></i> Top Risks</h3>
+                        <span class="badge">4 critical</span>
+                    </div>
+                    <div class="top-risks" id="topRisks">
+                        <!-- Injected by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="content-footer">
+                <span>RHINES Engineering Services Ltd · in JV with CM Kamau &amp; Associates · in association with BATCH Associates Ltd</span>
+                <span style="color:var(--text-muted);font-size:12px;">Data sourced from Monthly Progress Report No. 30 – July 2026</span>
+            </footer>
+
+        </main>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SCRIPTS -->
+    <!-- ============================================================ -->
+    <script src="data/project-data.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/navigation.js"></script>
+
+</body>
+</html>

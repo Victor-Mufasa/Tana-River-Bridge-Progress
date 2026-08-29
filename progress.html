@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Overview - Tana River Bridge Project</title>
+
+    <!-- ============================================================ -->
+    <!-- CRITICAL: Theme script must run BEFORE any CSS or rendering -->
+    <!-- This prevents the flash of light mode before dark mode applies -->
+    <!-- ============================================================ -->
+    <script>
+        (function() {
+            'use strict';
+            var STORAGE_KEY = 'tana-bridge-theme';
+            var stored = localStorage.getItem(STORAGE_KEY);
+            var theme = stored;
+            if (!theme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                theme = 'dark';
+            }
+            if (!theme) theme = 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+            // Store the applied theme for later use
+            window.__theme = theme;
+        })();
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
+    </script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- ============================================================ -->
+    <!-- Theme script runs again here for any additional setup -->
+    <!-- But the theme is already applied from the inline script above -->
+    <!-- ============================================================ -->
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-inner">
+            <div class="logo-area">
+                <i class="fas fa-road" style="font-size:24px;color:var(--accent);"></i>
+                <div>
+                    <h1>New Tana River Bridge</h1>
+                    <span class="contract-ref">KeNHA/RD/HDS/4011/2023</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                </button>
+                <div class="status-badge" id="overallStatus">
+                    <span class="status-dot pulse"></span>
+                    <span class="status-text">CRITICAL</span>
+                </div>
+                <div class="report-info">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>MPR No. 30 · July 2026</span>
+                </div>
+                <a href="admin.html" class="admin-link">
+                    <i class="fas fa-pen-to-square"></i>
+                    <span>Update</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="app-container">
+        <nav class="sidebar">
+            <ul class="nav-list">
+                <li><a href="index.html" class="nav-link"><i class="fas fa-chart-simple"></i><span>Overview</span></a></li>
+                <li><a href="progress.html" class="nav-link active"><i class="fas fa-tasks"></i><span>Progress</span></a></li>
+                <li><a href="financial.html" class="nav-link"><i class="fas fa-coins"></i><span>Financial</span></a></li>
+                <li><a href="environmental.html" class="nav-link"><i class="fas fa-leaf"></i><span>Environmental</span></a></li>
+                <li><a href="risks-actions.html" class="nav-link"><i class="fas fa-shield-alt"></i><span>Risks &amp; Actions</span></a></li>
+            </ul>
+            <div class="nav-footer">
+                <div class="small-text">Data updated:</div>
+                <div class="small-text" id="footerDate">2026-08-07</div>
+            </div>
+        </nav>
+
+        <main class="main-content">
+
+            <div class="page-header">
+                <div>
+                    <h2><i class="fas fa-tasks" style="color:var(--success);"></i> Work Package Progress</h2>
+                    <p class="page-subtitle">Detailed progress of all construction work packages</p>
+                </div>
+                <div>
+                    <span class="page-badge" style="background:var(--success-bg);color:var(--success);">Overall: 82.6%</span>
+                    <a href="admin.html?section=progress" class="page-badge" style="background:var(--primary);color:white;text-decoration:none;">
+                        <i class="fas fa-pen"></i> Update
+                    </a>
+                </div>
+            </div>
+
+            <!-- Work Package Table -->
+            <div class="card full-width">
+                <div class="card-header">
+                    <h3>All Work Packages</h3>
+                    <span class="badge">13 packages</span>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Work Package</th>
+                                <th style="text-align:center;">Progress</th>
+                                <th style="text-align:center;">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="workPackageBody">
+                            <!-- Injected by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Equipment Mobilization -->
+            <div class="card full-width">
+                <div class="card-header">
+                    <h3><i class="fas fa-truck" style="color:var(--warning);"></i> Equipment Mobilization</h3>
+                    <span class="badge" style="background:var(--danger-bg);color:var(--danger);">6 missing</span>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Equipment</th>
+                                <th style="text-align:center;">Required</th>
+                                <th style="text-align:center;">Mobilized</th>
+                                <th style="text-align:center;">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="equipmentBody">
+                            <!-- Injected by JS -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="alert-box warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span><strong>Critical:</strong> All asphalt-related equipment (Plant, Paver, Rollers, Distributor) has <strong>not been mobilized</strong> – this is blocking the completion of pavement works.</span>
+                </div>
+            </div>
+
+            <footer class="content-footer">
+                <span>RHINES Engineering Services Ltd · in JV with CM Kamau &amp; Associates · in association with BATCH Associates Ltd</span>
+                <span style="color:var(--text-muted);font-size:12px;">Data sourced from Monthly Progress Report No. 30 – July 2026</span>
+            </footer>
+
+        </main>
+    </div>
+
+    <script src="data/project-data.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/navigation.js"></script>
+
+</body>
+</html>

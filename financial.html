@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Overview - Tana River Bridge Project</title>
+
+    <!-- ============================================================ -->
+    <!-- CRITICAL: Theme script must run BEFORE any CSS or rendering -->
+    <!-- This prevents the flash of light mode before dark mode applies -->
+    <!-- ============================================================ -->
+    <script>
+        (function() {
+            'use strict';
+            var STORAGE_KEY = 'tana-bridge-theme';
+            var stored = localStorage.getItem(STORAGE_KEY);
+            var theme = stored;
+            if (!theme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                theme = 'dark';
+            }
+            if (!theme) theme = 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+            // Store the applied theme for later use
+            window.__theme = theme;
+        })();
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
+    </script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- ============================================================ -->
+    <!-- Theme script runs again here for any additional setup -->
+    <!-- But the theme is already applied from the inline script above -->
+    <!-- ============================================================ -->
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-inner">
+            <div class="logo-area">
+                <i class="fas fa-road" style="font-size:24px;color:var(--accent);"></i>
+                <div>
+                    <h1>New Tana River Bridge</h1>
+                    <span class="contract-ref">KeNHA/RD/HDS/4011/2023</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                </button>
+                <div class="status-badge" id="overallStatus">
+                    <span class="status-dot pulse"></span>
+                    <span class="status-text">CRITICAL</span>
+                </div>
+                <div class="report-info">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>MPR No. 30 · July 2026</span>
+                </div>
+                <a href="admin.html" class="admin-link">
+                    <i class="fas fa-pen-to-square"></i>
+                    <span>Update</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="app-container">
+        <nav class="sidebar">
+            <ul class="nav-list">
+                <li><a href="index.html" class="nav-link"><i class="fas fa-chart-simple"></i><span>Overview</span></a></li>
+                <li><a href="progress.html" class="nav-link"><i class="fas fa-tasks"></i><span>Progress</span></a></li>
+                <li><a href="financial.html" class="nav-link active"><i class="fas fa-coins"></i><span>Financial</span></a></li>
+                <li><a href="environmental.html" class="nav-link"><i class="fas fa-leaf"></i><span>Environmental</span></a></li>
+                <li><a href="risks-actions.html" class="nav-link"><i class="fas fa-shield-alt"></i><span>Risks &amp; Actions</span></a></li>
+            </ul>
+            <div class="nav-footer">
+                <div class="small-text">Data updated:</div>
+                <div class="small-text" id="footerDate">2026-08-07</div>
+            </div>
+        </nav>
+
+        <main class="main-content">
+
+            <div class="page-header">
+                <div>
+                    <h2><i class="fas fa-coins" style="color:var(--primary);"></i> Financial Dashboard</h2>
+                    <p class="page-subtitle">Contract sums, payments, and financial status</p>
+                </div>
+                <div>
+                    <span class="page-badge" style="background:var(--warning-bg);color:var(--warning);">KES</span>
+                    <a href="admin.html?section=financial" class="page-badge" style="background:var(--primary);color:white;text-decoration:none;">
+                        <i class="fas fa-pen"></i> Update
+                    </a>
+                </div>
+            </div>
+
+            <!-- Financial Grid -->
+            <div class="card full-width">
+                <div class="card-header">
+                    <h3>Contract Financial Summary</h3>
+                    <span class="badge">As of July 2026</span>
+                </div>
+                <div class="financial-grid" id="financialGrid">
+                    <!-- Injected by JS -->
+                </div>
+            </div>
+
+            <!-- Payment Status -->
+            <div class="card full-width">
+                <div class="card-header">
+                    <h3><i class="fas fa-file-invoice-dollar" style="color:var(--primary);"></i> Contractor Payment Status</h3>
+                    <span class="badge">13 IPCs</span>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>IPC No.</th>
+                                <th style="text-align:center;">Status</th>
+                                <th style="text-align:right;">Net Amount (KES)</th>
+                                <th style="text-align:center;">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="paymentStatusBody">
+                            <!-- Injected by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Consultant Payments -->
+            <div class="card full-width">
+                <div class="card-header">
+                    <h3><i class="fas fa-user-tie" style="color:var(--primary);"></i> Consultant Payments</h3>
+                    <span class="badge">15 invoices</span>
+                </div>
+                <div class="consultant-payment-summary" id="consultantSummary">
+                    <!-- Injected by JS -->
+                </div>
+            </div>
+
+            <footer class="content-footer">
+                <span>RHINES Engineering Services Ltd · in JV with CM Kamau &amp; Associates · in association with BATCH Associates Ltd</span>
+                <span style="color:var(--text-muted);font-size:12px;">Data sourced from Monthly Progress Report No. 30 – July 2026</span>
+            </footer>
+
+        </main>
+    </div>
+
+    <script src="data/project-data.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/navigation.js"></script>
+
+</body>
+</html>
