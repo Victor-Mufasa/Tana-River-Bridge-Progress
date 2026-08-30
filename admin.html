@@ -1,240 +1,357 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-theme="light">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Update Data - Tana River Bridge Project</title>
 
     <!-- CRITICAL: Theme script runs BEFORE any CSS -->
     <script>
-        (function() {
-            'use strict';
-            var STORAGE_KEY = 'tana-bridge-theme';
-            var stored = localStorage.getItem(STORAGE_KEY);
-            var theme = stored;
-            if (!theme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                theme = 'dark';
-            }
-            if (!theme) theme = 'light';
-            document.documentElement.setAttribute('data-theme', theme);
-            window.__theme = theme;
-        })();
+      (function () {
+        "use strict";
+        var STORAGE_KEY = "tana-bridge-theme";
+        var stored = localStorage.getItem(STORAGE_KEY);
+        var theme = stored;
+        if (
+          !theme &&
+          window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches
+        ) {
+          theme = "dark";
+        }
+        if (!theme) theme = "light";
+        document.documentElement.setAttribute("data-theme", theme);
+        window.__theme = theme;
+      })();
     </script>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
 
     <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css" />
-</head>
-<body>
+  </head>
+  <body>
+    <!-- ============================================================ -->
+    <!-- TOP HEADER - KeNHA Branding (Full Width) -->
+    <!-- ============================================================ -->
+    <div class="kenha-top-header">
+      <div class="header-inner">
+        <div class="kenha-logo-container">
+          <!-- KeNHA Logo Image -->
+          <img
+            src="images/KeNHA_logo.png"
+            alt="KeNHA Logo"
+            class="kenha-logo-img"
+          />
+          <div class="kenha-brand-text">
+            <span class="kenha-name">KeNHA</span>
+            <span class="kenha-tagline"
+              >Kenya National Highways Authority · Quality Highways, Better
+              Connections</span
+            >
+          </div>
+        </div>
+        <div class="kenha-flag">
+          <div class="flag-bars">
+            <span class="flag-bar bar-black"></span>
+            <span class="flag-bar bar-red"></span>
+            <span class="flag-bar bar-green"></span>
+          </div>
+          <span class="flag-text">Republic of Kenya</span>
+        </div>
+      </div>
+    </div>
 
     <!-- ============================================================ -->
-    <!-- HEADER -->
+    <!-- MAIN PROJECT HEADER -->
     <!-- ============================================================ -->
     <header class="main-header">
-        <div class="header-inner">
-            <div class="logo-area">
-                <i class="fas fa-road" style="font-size:24px;color:var(--accent);"></i>
-                <div>
-                    <h1>New Tana River Bridge</h1>
-                    <span class="contract-ref">KeNHA/RD/HDS/4011/2023</span>
-                </div>
-            </div>
-            <div class="header-right">
-                <!-- Theme Toggle -->
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                    <i class="fas fa-moon" id="themeIcon"></i>
-                </button>
-                <div class="status-badge" id="overallStatus">
-                    <span class="status-dot pulse"></span>
-                    <span class="status-text">CRITICAL</span>
-                </div>
-                <div class="report-info">
-                    <i class="fas fa-calendar-alt"></i>
-                    <span>MPR No. 30 · July 2026</span>
-                </div>
-                <a href="index.html" class="admin-link" style="background:var(--bg-tertiary);color:var(--text-primary);">
-                    <i class="fas fa-arrow-left"></i>
-                    <span>Back to Dashboard</span>
-                </a>
-            </div>
+      <div class="header-inner">
+        <div class="logo-area">
+          <div>
+            <h1>New Tana River Bridge</h1>
+            <span class="contract-ref">KeNHA/RD/HDS/4011/2023</span>
+          </div>
         </div>
+        <div class="header-right">
+          <!-- Theme Toggle -->
+          <button
+            class="theme-toggle"
+            id="themeToggle"
+            aria-label="Toggle theme"
+          >
+            <i class="fas fa-moon" id="themeIcon"></i>
+          </button>
+          <div class="status-badge" id="overallStatus">
+            <span class="status-dot pulse"></span>
+            <span class="status-text">ON-TRACK</span>
+          </div>
+          <div class="report-info">
+            <i class="fas fa-calendar-alt"></i>
+            <span>MPR No. 30 · July 2026</span>
+          </div>
+          <a href="admin.html" class="admin-link">
+            <i class="fas fa-pen-to-square"></i>
+            <span>Update</span>
+          </a>
+        </div>
+      </div>
     </header>
 
     <!-- ============================================================ -->
     <!-- SIDEBAR + CONTENT -->
     <!-- ============================================================ -->
     <div class="app-container">
-        <nav class="sidebar">
-            <ul class="nav-list">
-                <li><a href="index.html" class="nav-link"><i class="fas fa-chart-simple"></i><span>Overview</span></a></li>
-                <li><a href="progress.html" class="nav-link"><i class="fas fa-tasks"></i><span>Progress</span></a></li>
-                <li><a href="financial.html" class="nav-link"><i class="fas fa-coins"></i><span>Financial</span></a></li>
-                <li><a href="environmental.html" class="nav-link"><i class="fas fa-leaf"></i><span>Environmental</span></a></li>
-                <li><a href="risks-actions.html" class="nav-link"><i class="fas fa-shield-alt"></i><span>Risks &amp; Actions</span></a></li>
-            </ul>
-            <div class="nav-footer">
-                <div class="small-text">Data updated:</div>
-                <div class="small-text" id="footerDate">2026-08-07</div>
-            </div>
-        </nav>
+      <nav class="sidebar">
+        <ul class="nav-list">
+          <li>
+            <a href="index.html" class="nav-link"
+              ><i class="fas fa-chart-simple"></i><span>Overview</span></a
+            >
+          </li>
+          <li>
+            <a href="progress.html" class="nav-link"
+              ><i class="fas fa-tasks"></i><span>Progress</span></a
+            >
+          </li>
+          <li>
+            <a href="financial.html" class="nav-link"
+              ><i class="fas fa-coins"></i><span>Financial</span></a
+            >
+          </li>
+          <li>
+            <a href="environmental.html" class="nav-link"
+              ><i class="fas fa-leaf"></i><span>Environmental</span></a
+            >
+          </li>
+          <li>
+            <a href="risks-actions.html" class="nav-link"
+              ><i class="fas fa-shield-alt"></i
+              ><span>Risks &amp; Actions</span></a
+            >
+          </li>
+        </ul>
+        <div class="nav-footer">
+          <div class="small-text">Data updated:</div>
+          <div class="small-text" id="footerDate">2026-08-07</div>
+        </div>
+      </nav>
+
+      <!-- ============================================================ -->
+      <!-- MAIN CONTENT - ADMIN UPDATE PAGE -->
+      <!-- ============================================================ -->
+      <main class="main-content">
+        <!-- Page Header -->
+        <div class="page-header">
+          <div>
+            <h2>
+              <i class="fas fa-pen-to-square" style="color: var(--primary)"></i>
+              Update Project Data
+            </h2>
+            <p class="page-subtitle">
+              Enter new progress data from the latest Monthly Progress Report
+            </p>
+          </div>
+          <div>
+            <span
+              class="page-badge"
+              style="background: var(--warning-bg); color: var(--warning)"
+            >
+              <i class="fas fa-lock"></i> Admin Only
+            </span>
+          </div>
+        </div>
+
+        <!-- Status Message -->
+        <div id="updateStatus" style="display: none" class="alert-box"></div>
 
         <!-- ============================================================ -->
-        <!-- MAIN CONTENT - ADMIN UPDATE PAGE -->
+        <!-- SECTION 1: Overall Project Status -->
         <!-- ============================================================ -->
-        <main class="main-content">
-
-            <!-- Page Header -->
-            <div class="page-header">
-                <div>
-                    <h2><i class="fas fa-pen-to-square" style="color:var(--primary);"></i> Update Project Data</h2>
-                    <p class="page-subtitle">Enter new progress data from the latest Monthly Progress Report</p>
-                </div>
-                <div>
-                    <span class="page-badge" style="background:var(--warning-bg);color:var(--warning);">
-                        <i class="fas fa-lock"></i> Admin Only
-                    </span>
-                </div>
+        <div class="card full-width">
+          <div class="card-header">
+            <h3>
+              <i class="fas fa-chart-line" style="color: var(--primary)"></i>
+              Overall Project Status
+            </h3>
+          </div>
+          <form id="updateForm" class="admin-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="overallProgress">Overall Progress (%)</label>
+                <input
+                  type="number"
+                  id="overallProgress"
+                  step="0.1"
+                  min="0"
+                  max="100"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="daysToCompletion">Days to Completion</label>
+                <input type="number" id="daysToCompletion" min="0" required />
+              </div>
+              <div class="form-group">
+                <label for="projectStatus">Project Status</label>
+                <select id="projectStatus">
+                  <option value="CRITICAL">🔴 Critical</option>
+                  <option value="WARNING">🟡 Warning</option>
+                  <option value="ON-TRACK">🟢 On-Track</option>
+                </select>
+              </div>
             </div>
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-save"></i> Update Overall Status
+            </button>
+          </form>
+        </div>
 
-            <!-- Status Message -->
-            <div id="updateStatus" style="display:none;" class="alert-box"></div>
+        <!-- ============================================================ -->
+        <!-- SECTION 2: Work Package Updates -->
+        <!-- ============================================================ -->
+        <div class="card full-width">
+          <div class="card-header">
+            <h3>
+              <i class="fas fa-tasks" style="color: var(--success)"></i> Work
+              Package Progress
+            </h3>
+            <span class="badge">Update individual package progress</span>
+          </div>
+          <div id="workPackageUpdateContainer">
+            <!-- Injected by JS -->
+          </div>
+        </div>
 
-            <!-- ============================================================ -->
-            <!-- SECTION 1: Overall Project Status -->
-            <!-- ============================================================ -->
-            <div class="card full-width">
-                <div class="card-header">
-                    <h3><i class="fas fa-chart-line" style="color:var(--primary);"></i> Overall Project Status</h3>
-                </div>
-                <form id="updateForm" class="admin-form">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="overallProgress">Overall Progress (%)</label>
-                            <input type="number" id="overallProgress" step="0.1" min="0" max="100" required />
-                        </div>
-                        <div class="form-group">
-                            <label for="daysToCompletion">Days to Completion</label>
-                            <input type="number" id="daysToCompletion" min="0" required />
-                        </div>
-                        <div class="form-group">
-                            <label for="projectStatus">Project Status</label>
-                            <select id="projectStatus">
-                                <option value="CRITICAL">🔴 Critical</option>
-                                <option value="WARNING">🟡 Warning</option>
-                                <option value="ON-TRACK">🟢 On-Track</option>
-                            </select>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save"></i> Update Overall Status
-                    </button>
-                </form>
+        <!-- ============================================================ -->
+        <!-- SECTION 3: Equipment Updates -->
+        <!-- ============================================================ -->
+        <div class="card full-width">
+          <div class="card-header">
+            <h3>
+              <i class="fas fa-truck" style="color: var(--warning)"></i>
+              Equipment Mobilization
+            </h3>
+            <span class="badge">Update equipment counts</span>
+          </div>
+          <div id="equipmentUpdateContainer">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 4: Add New Action -->
+        <!-- ============================================================ -->
+        <div class="card full-width">
+          <div class="card-header">
+            <h3>
+              <i class="fas fa-plus-circle" style="color: var(--primary)"></i>
+              Add New Action Item
+            </h3>
+          </div>
+          <form id="addActionForm" class="admin-form">
+            <div class="form-row">
+              <div class="form-group" style="flex: 1">
+                <label for="actionPriority">Priority</label>
+                <select id="actionPriority">
+                  <option value="critical">🔴 Critical</option>
+                  <option value="high">🟡 High</option>
+                  <option value="medium">🔵 Medium</option>
+                  <option value="low">🟢 Low</option>
+                </select>
+              </div>
+              <div class="form-group" style="flex: 3">
+                <label for="actionDescription">Action Description</label>
+                <input
+                  type="text"
+                  id="actionDescription"
+                  placeholder="Enter action item..."
+                  required
+                />
+              </div>
+              <div class="form-group" style="flex: 1">
+                <label for="actionStatus">Status</label>
+                <select id="actionStatus">
+                  <option value="pending">⏳ Pending</option>
+                  <option value="in-progress">🔄 In Progress</option>
+                  <option value="completed">✅ Completed</option>
+                </select>
+              </div>
             </div>
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-plus"></i> Add Action
+            </button>
+          </form>
+        </div>
 
-            <!-- ============================================================ -->
-            <!-- SECTION 2: Work Package Updates -->
-            <!-- ============================================================ -->
-            <div class="card full-width">
-                <div class="card-header">
-                    <h3><i class="fas fa-tasks" style="color:var(--success);"></i> Work Package Progress</h3>
-                    <span class="badge">Update individual package progress</span>
-                </div>
-                <div id="workPackageUpdateContainer">
-                    <!-- Injected by JS -->
-                </div>
+        <!-- ============================================================ -->
+        <!-- SECTION 5: Export / Import -->
+        <!-- ============================================================ -->
+        <div class="row-2col">
+          <div class="card">
+            <div class="card-header">
+              <h3>
+                <i class="fas fa-download" style="color: var(--primary)"></i>
+                Export Data
+              </h3>
             </div>
-
-            <!-- ============================================================ -->
-            <!-- SECTION 3: Equipment Updates -->
-            <!-- ============================================================ -->
-            <div class="card full-width">
-                <div class="card-header">
-                    <h3><i class="fas fa-truck" style="color:var(--warning);"></i> Equipment Mobilization</h3>
-                    <span class="badge">Update equipment counts</span>
-                </div>
-                <div id="equipmentUpdateContainer">
-                    <!-- Injected by JS -->
-                </div>
+            <button
+              onclick="exportData()"
+              class="btn btn-secondary"
+              style="width: 100%"
+            >
+              <i class="fas fa-file-export"></i> Download JSON
+            </button>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h3>
+                <i class="fas fa-upload" style="color: var(--primary)"></i>
+                Import Data
+              </h3>
             </div>
+            <input
+              type="file"
+              id="importFile"
+              accept=".json"
+              style="margin-bottom: 10px; width: 100%"
+            />
+            <button
+              onclick="importData()"
+              class="btn btn-secondary"
+              style="width: 100%"
+            >
+              <i class="fas fa-file-import"></i> Upload JSON
+            </button>
+          </div>
+        </div>
 
-            <!-- ============================================================ -->
-            <!-- SECTION 4: Add New Action -->
-            <!-- ============================================================ -->
-            <div class="card full-width">
-                <div class="card-header">
-                    <h3><i class="fas fa-plus-circle" style="color:var(--primary);"></i> Add New Action Item</h3>
-                </div>
-                <form id="addActionForm" class="admin-form">
-                    <div class="form-row">
-                        <div class="form-group" style="flex:1;">
-                            <label for="actionPriority">Priority</label>
-                            <select id="actionPriority">
-                                <option value="critical">🔴 Critical</option>
-                                <option value="high">🟡 High</option>
-                                <option value="medium">🔵 Medium</option>
-                                <option value="low">🟢 Low</option>
-                            </select>
-                        </div>
-                        <div class="form-group" style="flex:3;">
-                            <label for="actionDescription">Action Description</label>
-                            <input type="text" id="actionDescription" placeholder="Enter action item..." required />
-                        </div>
-                        <div class="form-group" style="flex:1;">
-                            <label for="actionStatus">Status</label>
-                            <select id="actionStatus">
-                                <option value="pending">⏳ Pending</option>
-                                <option value="in-progress">🔄 In Progress</option>
-                                <option value="completed">✅ Completed</option>
-                            </select>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-plus"></i> Add Action
-                    </button>
-                </form>
-            </div>
-
-            <!-- ============================================================ -->
-            <!-- SECTION 5: Export / Import -->
-            <!-- ============================================================ -->
-            <div class="row-2col">
-                <div class="card">
-                    <div class="card-header">
-                        <h3><i class="fas fa-download" style="color:var(--primary);"></i> Export Data</h3>
-                    </div>
-                    <button onclick="exportData()" class="btn btn-secondary" style="width:100%;">
-                        <i class="fas fa-file-export"></i> Download JSON
-                    </button>
-                </div>
-                <div class="card">
-                    <div class="card-header">
-                        <h3><i class="fas fa-upload" style="color:var(--primary);"></i> Import Data</h3>
-                    </div>
-                    <input type="file" id="importFile" accept=".json" style="margin-bottom:10px;width:100%;" />
-                    <button onclick="importData()" class="btn btn-secondary" style="width:100%;">
-                        <i class="fas fa-file-import"></i> Upload JSON
-                    </button>
-                </div>
-            </div>
-
-            <!-- Footer -->
-            <footer class="content-footer">
-                <span>RHINES Engineering Services Ltd · in JV with CM Kamau &amp; Associates · in association with BATCH Associates Ltd</span>
-                <span style="color:var(--text-muted);font-size:12px;">Data sourced from Monthly Progress Report No. 30 – July 2026</span>
-            </footer>
-
-        </main>
+        <!-- Footer -->
+        <footer class="content-footer">
+          <span
+            >RHINES Engineering Services Ltd · in JV with CM Kamau &amp;
+            Associates · in association with BATCH Associates Ltd</span
+          >
+          <span style="color: var(--text-muted); font-size: 12px"
+            >Data sourced from Monthly Progress Report No. 30 – July 2026</span
+          >
+        </footer>
+      </main>
     </div>
 
     <!-- ============================================================ -->
@@ -245,6 +362,5 @@
     <script src="js/dashboard.js"></script>
     <script src="js/navigation.js"></script>
     <script src="js/admin.js"></script>
-
-</body>
+  </body>
 </html>

@@ -1,6 +1,6 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-theme="light">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Overview - Tana River Bridge Project</title>
@@ -10,32 +10,41 @@
     <!-- This prevents the flash of light mode before dark mode applies -->
     <!-- ============================================================ -->
     <script>
-        (function() {
-            'use strict';
-            var STORAGE_KEY = 'tana-bridge-theme';
-            var stored = localStorage.getItem(STORAGE_KEY);
-            var theme = stored;
-            if (!theme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                theme = 'dark';
-            }
-            if (!theme) theme = 'light';
-            document.documentElement.setAttribute('data-theme', theme);
-            // Store the applied theme for later use
-            window.__theme = theme;
-        })();
+      (function () {
+        "use strict";
+        var STORAGE_KEY = "tana-bridge-theme";
+        var stored = localStorage.getItem(STORAGE_KEY);
+        var theme = stored;
+        if (
+          !theme &&
+          window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches
+        ) {
+          theme = "dark";
+        }
+        if (!theme) theme = "light";
+        document.documentElement.setAttribute("data-theme", theme);
+        // Store the applied theme for later use
+        window.__theme = theme;
+      })();
     </script>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
 
     <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css" />
@@ -44,137 +53,241 @@
     <!-- Theme script runs again here for any additional setup -->
     <!-- But the theme is already applied from the inline script above -->
     <!-- ============================================================ -->
-</head>
-<body>
-
-    <header class="main-header">
-        <div class="header-inner">
-            <div class="logo-area">
-                <i class="fas fa-road" style="font-size:24px;color:var(--accent);"></i>
-                <div>
-                    <h1>New Tana River Bridge</h1>
-                    <span class="contract-ref">KeNHA/RD/HDS/4011/2023</span>
-                </div>
-            </div>
-            <div class="header-right">
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                    <i class="fas fa-moon" id="themeIcon"></i>
-                </button>
-                <div class="status-badge" id="overallStatus">
-                    <span class="status-dot pulse"></span>
-                    <span class="status-text">CRITICAL</span>
-                </div>
-                <div class="report-info">
-                    <i class="fas fa-calendar-alt"></i>
-                    <span>MPR No. 30 · July 2026</span>
-                </div>
-                <a href="admin.html" class="admin-link">
-                    <i class="fas fa-pen-to-square"></i>
-                    <span>Update</span>
-                </a>
-            </div>
+  </head>
+  <body>
+    <!-- ============================================================ -->
+    <!-- TOP HEADER - KeNHA Branding (Full Width) -->
+    <!-- ============================================================ -->
+    <div class="kenha-top-header">
+      <div class="header-inner">
+        <div class="kenha-logo-container">
+          <!-- KeNHA Logo Image -->
+          <img
+            src="images/KeNHA_logo.png"
+            alt="KeNHA Logo"
+            class="kenha-logo-img"
+          />
+          <div class="kenha-brand-text">
+            <span class="kenha-name">KeNHA</span>
+            <span class="kenha-tagline"
+              >Kenya National Highways Authority · Quality Highways, Better
+              Connections</span
+            >
+          </div>
         </div>
+        <div class="kenha-flag">
+          <div class="flag-bars">
+            <span class="flag-bar bar-black"></span>
+            <span class="flag-bar bar-red"></span>
+            <span class="flag-bar bar-green"></span>
+          </div>
+          <span class="flag-text">Republic of Kenya</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- MAIN PROJECT HEADER -->
+    <!-- ============================================================ -->
+    <header class="main-header">
+      <div class="header-inner">
+        <div class="logo-area">
+          <div>
+            <h1>New Tana River Bridge</h1>
+            <span class="contract-ref">KeNHA/RD/HDS/4011/2023</span>
+          </div>
+        </div>
+        <div class="header-right">
+          <!-- Theme Toggle -->
+          <button
+            class="theme-toggle"
+            id="themeToggle"
+            aria-label="Toggle theme"
+          >
+            <i class="fas fa-moon" id="themeIcon"></i>
+          </button>
+          <div class="status-badge" id="overallStatus">
+            <span class="status-dot pulse"></span>
+            <span class="status-text">ON-TRACK</span>
+          </div>
+          <div class="report-info">
+            <i class="fas fa-calendar-alt"></i>
+            <span>MPR No. 30 · July 2026</span>
+          </div>
+          <a href="admin.html" class="admin-link">
+            <i class="fas fa-pen-to-square"></i>
+            <span>Update</span>
+          </a>
+        </div>
+      </div>
     </header>
 
     <div class="app-container">
-        <nav class="sidebar">
-            <ul class="nav-list">
-                <li><a href="index.html" class="nav-link"><i class="fas fa-chart-simple"></i><span>Overview</span></a></li>
-                <li><a href="progress.html" class="nav-link"><i class="fas fa-tasks"></i><span>Progress</span></a></li>
-                <li><a href="financial.html" class="nav-link"><i class="fas fa-coins"></i><span>Financial</span></a></li>
-                <li><a href="environmental.html" class="nav-link active"><i class="fas fa-leaf"></i><span>Environmental</span></a></li>
-                <li><a href="risks-actions.html" class="nav-link"><i class="fas fa-shield-alt"></i><span>Risks &amp; Actions</span></a></li>
-            </ul>
-            <div class="nav-footer">
-                <div class="small-text">Data updated:</div>
-                <div class="small-text" id="footerDate">2026-08-07</div>
+      <nav class="sidebar">
+        <ul class="nav-list">
+          <li>
+            <a href="index.html" class="nav-link"
+              ><i class="fas fa-chart-simple"></i><span>Overview</span></a
+            >
+          </li>
+          <li>
+            <a href="progress.html" class="nav-link"
+              ><i class="fas fa-tasks"></i><span>Progress</span></a
+            >
+          </li>
+          <li>
+            <a href="financial.html" class="nav-link"
+              ><i class="fas fa-coins"></i><span>Financial</span></a
+            >
+          </li>
+          <li>
+            <a href="environmental.html" class="nav-link active"
+              ><i class="fas fa-leaf"></i><span>Environmental</span></a
+            >
+          </li>
+          <li>
+            <a href="risks-actions.html" class="nav-link"
+              ><i class="fas fa-shield-alt"></i
+              ><span>Risks &amp; Actions</span></a
+            >
+          </li>
+        </ul>
+        <div class="nav-footer">
+          <div class="small-text">Data updated:</div>
+          <div class="small-text" id="footerDate">2026-08-07</div>
+        </div>
+      </nav>
+
+      <main class="main-content">
+        <div class="page-header">
+          <div>
+            <h2>
+              <i class="fas fa-leaf" style="color: var(--success)"></i>
+              Environmental &amp; Social
+            </h2>
+            <p class="page-subtitle">
+              Permits, compliance, gender, and health &amp; safety
+            </p>
+          </div>
+          <div>
+            <span
+              class="page-badge"
+              style="background: var(--danger-bg); color: var(--danger)"
+              >5 issues</span
+            >
+            <a
+              href="admin.html?section=environmental"
+              class="page-badge"
+              style="
+                background: var(--primary);
+                color: white;
+                text-decoration: none;
+              "
+            >
+              <i class="fas fa-pen"></i> Update
+            </a>
+          </div>
+        </div>
+
+        <!-- Environmental Compliance Table -->
+        <div class="card full-width">
+          <div class="card-header">
+            <h3>
+              <i class="fas fa-file-contract"></i> Permits &amp; Licenses
+              Compliance
+            </h3>
+            <span class="badge">12 permits</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Permit / License</th>
+                  <th style="text-align: center">Status</th>
+                  <th style="text-align: center">Validity</th>
+                </tr>
+              </thead>
+              <tbody id="envBody">
+                <!-- Injected by JS -->
+              </tbody>
+            </table>
+          </div>
+          <div class="alert-box warning">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span
+              ><strong>Action Required:</strong> Garissa Campsite EIA, WRA
+              Permits, CESMP, and Waste Management Plan need
+              <strong>urgent attention</strong>.</span
+            >
+          </div>
+        </div>
+
+        <!-- Gender Mainstreaming -->
+        <div class="row-2col">
+          <div class="card">
+            <div class="card-header">
+              <h3>
+                <i class="fas fa-venus-mars" style="color: var(--primary)"></i>
+                Workforce Gender
+              </h3>
+              <span
+                class="badge"
+                style="background: var(--danger-bg); color: var(--danger)"
+                >Gap: -23%</span
+              >
             </div>
-        </nav>
-
-        <main class="main-content">
-
-            <div class="page-header">
-                <div>
-                    <h2><i class="fas fa-leaf" style="color:var(--success);"></i> Environmental &amp; Social</h2>
-                    <p class="page-subtitle">Permits, compliance, gender, and health &amp; safety</p>
-                </div>
-                <div>
-                    <span class="page-badge" style="background:var(--danger-bg);color:var(--danger);">5 issues</span>
-                    <a href="admin.html?section=environmental" class="page-badge" style="background:var(--primary);color:white;text-decoration:none;">
-                        <i class="fas fa-pen"></i> Update
-                    </a>
-                </div>
+            <div class="gender-grid" id="genderGrid">
+              <!-- Injected by JS -->
             </div>
-
-            <!-- Environmental Compliance Table -->
-            <div class="card full-width">
-                <div class="card-header">
-                    <h3><i class="fas fa-file-contract"></i> Permits &amp; Licenses Compliance</h3>
-                    <span class="badge">12 permits</span>
-                </div>
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Permit / License</th>
-                                <th style="text-align:center;">Status</th>
-                                <th style="text-align:center;">Validity</th>
-                            </tr>
-                        </thead>
-                        <tbody id="envBody">
-                            <!-- Injected by JS -->
-                        </tbody>
-                    </table>
-                </div>
-                <div class="alert-box warning">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <span><strong>Action Required:</strong> Garissa Campsite EIA, WRA Permits, CESMP, and Waste Management Plan need <strong>urgent attention</strong>.</span>
-                </div>
+            <div class="alert-box warning" style="margin-top: 12px">
+              <i class="fas fa-exclamation-triangle"></i>
+              <span
+                >Contractor workforce is <strong>93% male</strong> – below the
+                30% minimum target for either gender.</span
+              >
             </div>
+          </div>
 
-            <!-- Gender Mainstreaming -->
-            <div class="row-2col">
-                <div class="card">
-                    <div class="card-header">
-                        <h3><i class="fas fa-venus-mars" style="color:var(--primary);"></i> Workforce Gender</h3>
-                        <span class="badge" style="background:var(--danger-bg);color:var(--danger);">Gap: -23%</span>
-                    </div>
-                    <div class="gender-grid" id="genderGrid">
-                        <!-- Injected by JS -->
-                    </div>
-                    <div class="alert-box warning" style="margin-top:12px;">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <span>Contractor workforce is <strong>93% male</strong> – below the 30% minimum target for either gender.</span>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <h3><i class="fas fa-hard-hat" style="color:var(--success);"></i> Health &amp; Safety</h3>
-                        <span class="badge" style="background:var(--success-bg);color:var(--success);">0 incidents</span>
-                    </div>
-                    <div class="safety-grid" id="safetyGrid">
-                        <!-- Injected by JS -->
-                    </div>
-                    <div class="alert-box success" style="margin-top:12px;">
-                        <i class="fas fa-check-circle"></i>
-                        <span>No project-related accidents recorded in July 2026. PPE compliance maintained.</span>
-                    </div>
-                </div>
+          <div class="card">
+            <div class="card-header">
+              <h3>
+                <i class="fas fa-hard-hat" style="color: var(--success)"></i>
+                Health &amp; Safety
+              </h3>
+              <span
+                class="badge"
+                style="background: var(--success-bg); color: var(--success)"
+                >0 incidents</span
+              >
             </div>
+            <div class="safety-grid" id="safetyGrid">
+              <!-- Injected by JS -->
+            </div>
+            <div class="alert-box success" style="margin-top: 12px">
+              <i class="fas fa-check-circle"></i>
+              <span
+                >No project-related accidents recorded in July 2026. PPE
+                compliance maintained.</span
+              >
+            </div>
+          </div>
+        </div>
 
-            <footer class="content-footer">
-                <span>RHINES Engineering Services Ltd · in JV with CM Kamau &amp; Associates · in association with BATCH Associates Ltd</span>
-                <span style="color:var(--text-muted);font-size:12px;">Data sourced from Monthly Progress Report No. 30 – July 2026</span>
-            </footer>
-
-        </main>
+        <footer class="content-footer">
+          <span
+            >RHINES Engineering Services Ltd · in JV with CM Kamau &amp;
+            Associates · in association with BATCH Associates Ltd</span
+          >
+          <span style="color: var(--text-muted); font-size: 12px"
+            >Data sourced from Monthly Progress Report No. 30 – July 2026</span
+          >
+        </footer>
+      </main>
     </div>
 
     <script src="data/project-data.js"></script>
     <script src="js/theme.js"></script>
     <script src="js/dashboard.js"></script>
     <script src="js/navigation.js"></script>
-
-</body>
+  </body>
 </html>
