@@ -22,7 +22,7 @@
             totalDays: 919,
             revisedCompletion: '2026-08-13',
             daysToCompletion: 13,
-            status: 'CRITICAL'
+            status: 'ON-TRACK'
         },
         kpis: [
             { label: 'Overall Progress', value: '82.6%', sub: 'Physical Progress', type: 'warning' },
@@ -543,7 +543,7 @@
     function updateStatusBadge(data) {
         const badge = document.getElementById('overallStatus');
         if (!badge) return;
-        const status = data.project.status || 'CRITICAL';
+        const status = data.project.status || 'ON-TRACK';
         const color = status === 'CRITICAL' ? 'var(--danger)' :
             status === 'WARNING' ? 'var(--warning)' : 'var(--success)';
         badge.innerHTML = `

@@ -1101,3 +1101,13 @@ tr:last-child td {
         padding: 4px 10px;
     }
 }
+
+/* Add after the existing status-badge styles */
+
+.status-badge .status-dot.green {
+    background: var(--success);
+}
+
+.status-badge .status-text.on-track {
+    color: var(--success);
+}

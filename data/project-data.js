@@ -21,7 +21,7 @@ window.PROJECT_DATA = {
         totalDays: 919,
         revisedCompletion: '2026-08-13',
         daysToCompletion: 13,
-        status: 'CRITICAL' // CRITICAL | WARNING | ON-TRACK
+        status: 'ON-TRACK' // CRITICAL | WARNING | ON-TRACK
     },
 
     // ============================================================
